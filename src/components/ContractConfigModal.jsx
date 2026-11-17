@@ -3,7 +3,8 @@ import { useAccount, useWalletClient } from 'wagmi';
 import { ethers } from 'ethers';
 import { Database, Plus, Check, ExternalLink, AlertTriangle, ShieldCheck, Zap } from 'lucide-react';
 import NonceWatchRegistryAbi from '../contracts/NonceWatchRegistry.json';
-import { BOTCHAIN_TESTNET_CONFIG } from '../services/botChainService';
+import { BOTCHAIN_CONFIG } from '../services/botChainService';
+import BotChainLogo from './BotChainLogo';
 
 export default function ContractConfigModal({
   isOpen,
@@ -33,7 +34,7 @@ export default function ContractConfigModal({
   // Deploy NonceWatchRegistry.sol directly from connected wallet (Gas fee only!)
   const handleDeployContractInApp = async () => {
     if (!walletClient || !isConnected) {
-      alert('Please connect your wallet on BOT Chain Testnet to deploy the contract.');
+      alert('Please connect your wallet on BOT Chain to deploy the contract.');
       return;
     }
 
@@ -51,7 +52,7 @@ export default function ContractConfigModal({
       setDeploySuccess({ hash });
 
       // Poll for receipt
-      const provider = new ethers.JsonRpcProvider(BOTCHAIN_TESTNET_CONFIG.rpcUrl);
+      const provider = new ethers.JsonRpcProvider(BOTCHAIN_CONFIG.rpcUrl);
       const receipt = await provider.waitForTransaction(hash);
 
       if (receipt && receipt.contractAddress) {
@@ -101,7 +102,7 @@ export default function ContractConfigModal({
         {/* Existing Contract Address Input */}
         <div className="space-y-2">
           <label className="block text-xs font-bold uppercase tracking-wider text-slate-700">
-            Deployed Contract Address on BOT Chain Testnet
+            Deployed Contract Address on BOT Chain
           </label>
           <input
             type="text"
@@ -120,7 +121,7 @@ export default function ContractConfigModal({
                 Option B: Deploy from Connected Wallet
               </span>
               <span className="text-[11px] text-slate-500">
-                Deploys fresh NonceWatchRegistry.sol to BOT Chain Testnet (Gas fee only).
+                Deploys fresh NonceWatchRegistry.sol to BOT Chain (Gas fee only).
               </span>
             </div>
             <button
@@ -142,11 +143,12 @@ export default function ContractConfigModal({
                 </div>
               )}
               <a
-                href={`${BOTCHAIN_TESTNET_CONFIG.blockExplorerUrl}/tx/${deploySuccess.hash}`}
+                href={`${BOTCHAIN_CONFIG.blockExplorerUrl}/tx/${deploySuccess.hash}`}
                 target="_blank"
                 rel="noreferrer"
                 className="underline flex items-center space-x-1 text-[11px] text-emerald-700 hover:text-emerald-900"
               >
+                <BotChainLogo className="w-3.5 h-3.5" />
                 <span>View Deployment Tx on BOTScan</span>
                 <ExternalLink className="w-3 h-3" />
               </a>

@@ -1,10 +1,10 @@
 # NonceWatch Whitepaper
 ### Decentralized Transaction Sequencing Diagnostic & Nonce Conflict Resolution Protocol on BOT Chain
 
-**Version:** 1.0.0  
-**Target Network:** BOT Chain Testnet (Chain ID: `968` / `0x3c8`)  
-**Registry Contract:** `0x87ceEFd8842ed4ba969dd6F414bFfA767c542ccc`  
-**Explorer:** [https://scan.bohr.life](https://scan.bohr.life)  
+**Version:** 1.1.0  
+**Target Network:** BOT Chain Mainnet (Chain ID: `677` / `0x2a5`)  
+**Registry Contract:** `0x5D9e60Fd6eF30e58EfC16BD00CFbBFB4C3297c73`  
+**Explorer:** [https://scan.botchain.ai](https://scan.botchain.ai)  
 **Authors:** NonceWatch Core Engineering Team  
 
 ---
@@ -90,15 +90,15 @@ NonceWatch addresses these failure modes through a four-tier architecture:
 ```mermaid
 flowchart TD
     Client["Client / Developer Web Interface\n(White & Navy UI)"] -->|EIP-1193 / Reown AppKit| Wallet["Connected Wallet\n(MetaMask / Web3)"]
-    Client -->|Live JSON-RPC| RPC["BOT Chain Testnet RPC\nhttps://rpc.bohr.life (Chain ID: 968)"]
-    Wallet -->|Gas Fee Only Transaction| Contract["NonceWatchRegistry.sol\n(0x87ceEFd8842ed4ba969dd6F414bFfA767c542ccc)"]
-    Contract -->|Audit Events| Explorer["BOTScan Explorer\nhttps://scan.bohr.life"]
+    Client -->|Live JSON-RPC| RPC["BOT Chain Mainnet RPC\nhttps://rpc.botchain.ai (Chain ID: 677)"]
+    Wallet -->|Gas Fee Only Transaction| Contract["NonceWatchRegistry.sol\n(0x5D9e60Fd6eF30e58EfC16BD00CFbBFB4C3297c73)"]
+    Contract -->|Audit Events| Explorer["BOTScan Explorer\nhttps://scan.botchain.ai"]
     RPC -->|Pending vs Latest Nonce| DiagnosticEngine["Diagnostic & Anomaly Engine"]
     DiagnosticEngine -->|Remediation Payload| Client
 ```
 
 ### 3.1 Live Nonce State Matrix
-For any inspected account address $A$, NonceWatch executes parallel asynchronous JSON-RPC requests against BOT Chain Testnet:
+For any inspected account address $A$, NonceWatch executes parallel asynchronous JSON-RPC requests against BOT Chain Mainnet:
 
 1. `eth_getTransactionCount(A, 'latest')` $\rightarrow N_{\text{latest}}$
 2. `eth_getTransactionCount(A, 'pending')` $\rightarrow N_{\text{pending}}$
@@ -199,7 +199,7 @@ NonceWatch dynamically generates copy-paste ready scripts for immediate incident
 - **Viem:** Modern modular TypeScript script using `createWalletClient`.
 - **Foundry Cast:** Shell command ready for terminal dispatch:
   ```bash
-  cast send --rpc-url https://rpc.bohr.life \
+  cast send --rpc-url https://rpc.botchain.ai \
     --private-key $PRIVATE_KEY \
     --nonce <MISSING_NONCE> \
     --value 0 \
@@ -220,16 +220,17 @@ NonceWatch dynamically generates copy-paste ready scripts for immediate incident
 
 ## 7. Verification & Deployment Record
 
-The `NonceWatchRegistry` contract has been compiled, unit tested, and permanently deployed to **BOT Chain Testnet**:
+The `NonceWatchRegistry` contract has been compiled, unit tested, and permanently deployed to **BOT Chain Mainnet**:
 
 | Attribute | Deployment Detail |
 | :--- | :--- |
-| **Network** | BOT Chain Testnet |
-| **Chain ID** | `968` (`0x3c8`) |
-| **RPC URL** | `https://rpc.bohr.life` |
-| **Contract Address** | [`0x87ceEFd8842ed4ba969dd6F414bFfA767c542ccc`](https://scan.bohr.life/address/0x87ceEFd8842ed4ba969dd6F414bFfA767c542ccc) |
-| **Deployer** | [`0x55DA37AbbF8C9141adA4Dd1C2eF7211c0483eC16`](https://scan.bohr.life/address/0x55DA37AbbF8C9141adA4Dd1C2eF7211c0483eC16) |
-| **Bytecode Hash** | Verified 12,304 bytes |
+| **Network** | BOT Chain Mainnet |
+| **Chain ID** | `677` (`0x2a5`) |
+| **RPC URL** | `https://rpc.botchain.ai` |
+| **Contract Address** | [`0x5D9e60Fd6eF30e58EfC16BD00CFbBFB4C3297c73`](https://scan.botchain.ai/address/0x5D9e60Fd6eF30e58EfC16BD00CFbBFB4C3297c73) |
+| **Deployer** | [`0x55DA37AbbF8C9141adA4Dd1C2eF7211c0483eC16`](https://scan.botchain.ai/address/0x55DA37AbbF8C9141adA4Dd1C2eF7211c0483eC16) |
+| **Deployment Block** | `#29980159` |
+| **Bytecode Size** | Verified 13,704 bytes |
 | **Compiler** | Solidity 0.8.20 (Paris target, 200 optimizer runs) |
 | **Unit Test Coverage** | 7 Passing Tests (100% Core Functionality Pass) |
 
@@ -237,4 +238,5 @@ The `NonceWatchRegistry` contract has been compiled, unit tested, and permanentl
 
 ## 8. Conclusion
 
-NonceWatch establishes a standard for diagnosing and unblocking transaction sequencing bottlenecks in account-based EVM environments. By uniting live RPC inspection, interactive sequence visualization, automated remediation tooling, and an on-chain Gas-Fee-Only audit registry on BOT Chain Testnet, NonceWatch empowers developers and automated systems to maintain uninterrupted transaction throughput.
+NonceWatch establishes a standard for diagnosing and unblocking transaction sequencing bottlenecks in account-based EVM environments. By uniting live RPC inspection, interactive sequence visualization, automated remediation tooling, and an on-chain Gas-Fee-Only audit registry on BOT Chain Mainnet, NonceWatch empowers developers and automated systems to maintain uninterrupted transaction throughput.
+

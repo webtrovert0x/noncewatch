@@ -9,8 +9,10 @@ import SequencingDebugger from './components/SequencingDebugger';
 import OnChainRegistryHistory from './components/OnChainRegistryHistory';
 import ContractConfigModal from './components/ContractConfigModal';
 import RecordInvestigationModal from './components/RecordInvestigationModal';
+import BotChainLogo from './components/BotChainLogo';
+import NonceWatchLogo from './components/NonceWatchLogo';
 
-import { botChainService, BOTCHAIN_TESTNET_CONFIG } from './services/botChainService';
+import { botChainService, BOTCHAIN_CONFIG } from './services/botChainService';
 import { diagnosticService } from './services/diagnosticService';
 import NonceWatchRegistryAbi from './contracts/NonceWatchRegistry.json';
 
@@ -27,7 +29,7 @@ export default function App() {
 
   // Contract registry address state (reads from deployment.json, localStorage or env)
   const [registryAddress, setRegistryAddress] = useState(
-    process.env.VITE_REGISTRY_ADDRESS || localStorage.getItem('noncewatch_registry') || '0x87ceEFd8842ed4ba969dd6F414bFfA767c542ccc'
+    process.env.VITE_REGISTRY_ADDRESS || localStorage.getItem('noncewatch_registry') || '0x5D9e60Fd6eF30e58EfC16BD00CFbBFB4C3297c73'
   );
 
   // Modals state
@@ -84,7 +86,7 @@ export default function App() {
         }
       }
 
-      // 2. Retrieve live nonce information from BOT Chain Testnet RPC
+      // 2. Retrieve live nonce information from BOT Chain Mainnet RPC
       const data = await botChainService.inspectAccountNonces(addressToInspect);
       setAccountData(data);
 
@@ -137,8 +139,9 @@ export default function App() {
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 bg-navy-900 text-white rounded-3xl p-6 sm:p-8 shadow-sm">
           <div className="space-y-2 max-w-2xl">
             <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-900/80 border border-blue-700 text-blue-200 text-xs font-semibold">
+              <BotChainLogo className="w-4 h-4" />
               <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
-              <span>BOT Chain Testnet Nonce Inspector</span>
+              <span>BOT Chain Mainnet Nonce Inspector</span>
             </div>
             <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
               Live Wallet Nonce Inspector & Sequencing Diagnoser
@@ -241,20 +244,34 @@ export default function App() {
       <footer className="bg-white border-t border-slate-200 py-6 mt-12 text-xs text-slate-500">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center space-x-2">
+            <NonceWatchLogo className="w-5 h-5" glowing={false} />
             <span className="font-bold text-navy-900">NonceWatch</span>
             <span>—</span>
-            <span>BOT Chain Testnet (Chain ID: 968)</span>
+            <span className="inline-flex items-center space-x-1">
+              <BotChainLogo className="w-3.5 h-3.5" />
+              <span>BOT Chain Mainnet (Chain ID: 677)</span>
+            </span>
           </div>
-          <div className="flex items-center space-x-6 text-[11px] font-mono">
+          <div className="flex flex-wrap items-center gap-4 sm:gap-6 text-[11px] font-mono">
             <span>Contract: {registryAddress ? `${registryAddress.slice(0, 8)}...${registryAddress.slice(-6)}` : 'Not Set'}</span>
             <span>Policy: Gas Fee Only</span>
             <a
-              href="https://scan.bohr.life/"
+              href="https://scan.botchain.ai/"
               target="_blank"
               rel="noreferrer"
-              className="text-blue-700 hover:underline"
+              className="inline-flex items-center space-x-1 text-blue-700 hover:underline font-bold"
             >
-              BOTScan Explorer
+              <BotChainLogo className="w-3.5 h-3.5" />
+              <span>BOTScan Explorer</span>
+            </a>
+            <a
+              href="https://botchain.ai/"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center space-x-1 text-slate-600 hover:text-navy-900 hover:underline"
+            >
+              <BotChainLogo className="w-3.5 h-3.5" />
+              <span>botchain.ai</span>
             </a>
           </div>
         </div>

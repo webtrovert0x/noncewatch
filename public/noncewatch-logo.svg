@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <defs>
+    <!-- Background Gradient: Deep Navy -->
+    <linearGradient id="nwNavyGrad" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0F172A" />
+      <stop offset="50%" stop-color="#1E293B" />
+      <stop offset="100%" stop-color="#0A1128" />
+    </linearGradient>
+
+    <!-- Pulse Glow Gradient -->
+    <linearGradient id="nwPulseGrad" x1="10" y1="60" x2="110" y2="60" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="45%" stop-color="#2563EB" />
+      <stop offset="75%" stop-color="#60A5FA" />
+      <stop offset="100%" stop-color="#38BDF8" />
+    </linearGradient>
+
+    <!-- Sequence Ring Gradient -->
+    <linearGradient id="nwRingGrad" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#60A5FA" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#1D4ED8" stop-opacity="0.3" />
+    </linearGradient>
+
+    <filter id="nwGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Base Rounded Container (Navy) -->
+  <rect x="6" y="6" width="108" height="108" rx="26" fill="url(#nwNavyGrad)" stroke="url(#nwRingGrad)" stroke-width="2.5" />
+
+  <!-- Background Radar / Sequencing Grid Lines -->
+  <circle cx="60" cy="60" r="42" stroke="#334155" stroke-width="1" stroke-dasharray="3 3" opacity="0.6" />
+  <circle cx="60" cy="60" r="26" stroke="#334155" stroke-width="1" opacity="0.4" />
+  <line x1="60" y1="18" x2="60" y2="102" stroke="#334155" stroke-width="1" stroke-dasharray="2 4" opacity="0.4" />
+  <line x1="18" y1="60" x2="102" y2="60" stroke="#334155" stroke-width="1" stroke-dasharray="2 4" opacity="0.4" />
+
+  <!-- Diagnostic Monogram "N" + Nonce Sequencing Wave -->
+  <!-- Left Column: Nonce Pillar -->
+  <rect x="28" y="32" width="7" height="56" rx="3.5" fill="#FFFFFF" />
+
+  <!-- Right Column: Finalized Sequence Pillar -->
+  <rect x="85" y="32" width="7" height="56" rx="3.5" fill="#FFFFFF" />
+
+  <!-- Dynamic Diagonal Pulse & Nonce Inspection Ray -->
+  <!-- Connecting diagonal forming 'N' with oscilloscope waveform -->
+  <path d="M 32 36 L 50 56 L 57 44 L 63 76 L 70 64 L 88 84" 
+        stroke="url(#nwPulseGrad)" 
+        stroke-width="5" 
+        stroke-linecap="round" 
+        stroke-linejoin="round"
+        filter="url(#nwGlow)" />
+
+  <!-- Active Sequence Verification Checkpoint Nodes -->
+  <circle cx="32" cy="36" r="4.5" fill="#38BDF8" stroke="#FFFFFF" stroke-width="1.5" />
+  <circle cx="57" cy="44" r="3.5" fill="#60A5FA" />
+  <circle cx="63" cy="76" r="3.5" fill="#38BDF8" />
+  <circle cx="88" cy="84" r="4.5" fill="#22C55E" stroke="#FFFFFF" stroke-width="1.5" />
+
+  <!-- Center Crosshair Target / Nonce Eye -->
+  <circle cx="60" cy="60" r="2.5" fill="#FFFFFF" />
+</svg>

@@ -4,8 +4,9 @@ const path = require("path");
 
 async function main() {
   console.log("--------------------------------------------------");
-  console.log("Deploying NonceWatchRegistry to BOT Chain Testnet...");
+  console.log("Deploying NonceWatchRegistry to", hre.network.name);
   console.log("Network:", hre.network.name);
+  console.log("Chain ID:", hre.network.config.chainId);
   console.log("--------------------------------------------------");
 
   const [deployer] = await hre.ethers.getSigners();

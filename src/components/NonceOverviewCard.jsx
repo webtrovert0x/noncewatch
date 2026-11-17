@@ -1,6 +1,7 @@
 import React from 'react';
 import { Layers, Clock, Coins, CheckCircle2, AlertOctagon, HelpCircle, ArrowRight, Shield } from 'lucide-react';
-import { BOTCHAIN_TESTNET_CONFIG } from '../services/botChainService';
+import { BOTCHAIN_CONFIG } from '../services/botChainService';
+import BotChainLogo from './BotChainLogo';
 
 export default function NonceOverviewCard({ accountData, diagnosticResult }) {
   if (!accountData) return null;
@@ -53,7 +54,7 @@ export default function NonceOverviewCard({ accountData, diagnosticResult }) {
           <div className="border-l border-slate-700 pl-4">
             <span className="text-slate-400 block text-[10px] uppercase">RPC Source</span>
             <span className={`font-bold ${isLiveRpc ? 'text-emerald-400' : 'text-amber-400'}`}>
-              {isLiveRpc ? 'Live RPC (968)' : 'Diagnostic Lab'}
+              {isLiveRpc ? `Live RPC (${BOTCHAIN_CONFIG.chainId})` : 'Diagnostic Lab'}
             </span>
           </div>
         </div>
@@ -75,7 +76,7 @@ export default function NonceOverviewCard({ accountData, diagnosticResult }) {
             {latestNonce}
           </div>
           <p className="text-[11px] text-slate-500">
-            Total transactions mined and confirmed on BOT Chain Testnet.
+            Total transactions mined and confirmed on BOT Chain.
           </p>
         </div>
 
@@ -122,10 +123,10 @@ export default function NonceOverviewCard({ accountData, diagnosticResult }) {
         <div className="md:px-4 last:pr-0 space-y-1">
           <div className="flex items-center justify-between text-slate-500 text-xs font-semibold">
             <span className="flex items-center space-x-1.5">
-              <Coins className="w-4 h-4 text-amber-600" />
+              <BotChainLogo className="w-4 h-4" />
               <span>BOT Balance</span>
             </span>
-            <span className="text-[10px] font-mono text-slate-400">BOT Testnet</span>
+            <span className="text-[10px] font-mono text-slate-400">BOT Chain</span>
           </div>
           <div className="text-3xl font-black text-navy-900 font-mono truncate">
             {balance} <span className="text-sm font-semibold text-slate-500">BOT</span>
@@ -156,12 +157,12 @@ export default function NonceOverviewCard({ accountData, diagnosticResult }) {
             </>
           )}
         </div>
-        <div className="text-[11px] font-mono opacity-80 hidden sm:block">
-          Network: BOT Chain (ID: 968)
+        <div className="text-[11px] font-mono opacity-80 hidden sm:flex items-center space-x-1.5">
+          <BotChainLogo className="w-3.5 h-3.5" />
+          <span>Network: BOT Chain Mainnet (ID: {BOTCHAIN_CONFIG.chainId})</span>
         </div>
       </div>
 
     </div>
   );
 }
-

@@ -2,6 +2,32 @@ import { createAppKit } from '@reown/appkit/react';
 import { WagmiAdapter } from '@reown/appkit-adapter-wagmi';
 import { defineChain } from 'viem';
 
+// BOT Chain Mainnet specification (Chain ID: 677)
+export const botchainMainnet = defineChain({
+  id: 677,
+  name: 'BOT Chain',
+  nativeCurrency: {
+    name: 'BOT',
+    symbol: 'BOT',
+    decimals: 18,
+  },
+  rpcUrls: {
+    default: {
+      http: [process.env.BOTCHAIN_MAINNET_RPC || 'https://rpc.botchain.ai'],
+    },
+    public: {
+      http: [process.env.BOTCHAIN_MAINNET_RPC || 'https://rpc.botchain.ai'],
+    },
+  },
+  blockExplorers: {
+    default: {
+      name: 'BOTScan',
+      url: process.env.BOTCHAIN_EXPLORER || 'https://scan.botchain.ai/',
+    },
+  },
+  testnet: false,
+});
+
 // BOT Chain Testnet specification (Chain ID: 968)
 export const botchainTestnet = defineChain({
   id: 968,
@@ -13,26 +39,24 @@ export const botchainTestnet = defineChain({
   },
   rpcUrls: {
     default: {
-      http: [process.env.BOTCHAIN_TESTNET_RPC || 'https://rpc.bohr.life'],
+      http: ['https://rpc.bohr.life'],
     },
     public: {
-      http: [process.env.BOTCHAIN_TESTNET_RPC || 'https://rpc.bohr.life'],
+      http: ['https://rpc.bohr.life'],
     },
   },
   blockExplorers: {
     default: {
-      name: 'BOTScan',
-      url: process.env.BOTCHAIN_EXPLORER || 'https://scan.bohr.life/',
+      name: 'BOTScan Testnet',
+      url: 'https://scan.bohr.life/',
     },
   },
   testnet: true,
 });
 
-// AppKit Project ID - Retrieved securely from REOWN_ID in .env
-// Defaults to a fallback id if empty so the app remains resilient
-export const projectId = process.env.REOWN_ID || '3a8170812b534d0ff9d794f168faebe4';
+export const projectId = process.env.REOWN_ID || 'd9690df1851903b53a4f8c440127edec';
 
-export const networks = [botchainTestnet];
+export const networks = [botchainMainnet, botchainTestnet];
 
 export const wagmiAdapter = new WagmiAdapter({
   projectId,
@@ -41,16 +65,16 @@ export const wagmiAdapter = new WagmiAdapter({
 
 export const metadata = {
   name: 'NonceWatch',
-  description: 'Wallet Nonce Inspector & Sequencing Diagnoser on BOT Chain Testnet',
-  url: 'https://noncewatch.bohr.life',
-  icons: ['https://scan.bohr.life/favicon.ico'],
+  description: 'Wallet Nonce Inspector & Sequencing Diagnoser on BOT Chain',
+  url: 'https://noncewatch.vercel.app',
+  icons: ['https://scan.botchain.ai/favicon.ico'],
 };
 
 // Initialize AppKit modal
 createAppKit({
   adapters: [wagmiAdapter],
-  networks: [botchainTestnet],
-  defaultNetwork: botchainTestnet,
+  networks: [botchainMainnet, botchainTestnet],
+  defaultNetwork: botchainMainnet,
   projectId,
   metadata,
   themeMode: 'light',
@@ -66,4 +90,3 @@ createAppKit({
     socials: false,
   },
 });
-

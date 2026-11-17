@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useAccount, useWriteContract } from 'wagmi';
 import { FileCheck2, ShieldAlert, Zap, ExternalLink, CheckCircle2, AlertCircle } from 'lucide-react';
 import NonceWatchRegistryAbi from '../contracts/NonceWatchRegistry.json';
-import { BOTCHAIN_TESTNET_CONFIG } from '../services/botChainService';
+import { BOTCHAIN_CONFIG } from '../services/botChainService';
+import BotChainLogo from './BotChainLogo';
 
 export default function RecordInvestigationModal({
   isOpen,
@@ -17,7 +18,7 @@ export default function RecordInvestigationModal({
   const { writeContractAsync } = useWriteContract();
 
   const [developerNote, setDeveloperNote] = useState(
-    diagnosticResult?.summary || 'Nonce sequence verified on BOT Chain Testnet.'
+    diagnosticResult?.summary || 'Nonce sequence verified on BOT Chain.'
   );
   const [submitting, setSubmitting] = useState(false);
   const [txHash, setTxHash] = useState(null);
@@ -32,7 +33,7 @@ export default function RecordInvestigationModal({
     }
 
     if (!isConnected) {
-      alert('Please connect your wallet on BOT Chain Testnet.');
+      alert('Please connect your wallet on BOT Chain.');
       return;
     }
 
@@ -109,7 +110,7 @@ export default function RecordInvestigationModal({
           <div className="space-y-1">
             <span className="font-bold text-navy-900 block">Strict Gas Fee Only Interaction</span>
             <p className="text-slate-600 leading-relaxed">
-              This on-chain record modifies contract state on BOT Chain Testnet. It requires <strong>gas fee only</strong> (0 BOT protocol fee).
+              This on-chain record modifies contract state on BOT Chain. It requires <strong>gas fee only</strong> (0 BOT protocol fee).
             </p>
           </div>
         </div>
@@ -157,12 +158,13 @@ export default function RecordInvestigationModal({
             </div>
             <div className="font-mono text-[11px] break-all">{txHash}</div>
             <a
-              href={`${BOTCHAIN_TESTNET_CONFIG.blockExplorerUrl}/tx/${txHash}`}
+              href={`${BOTCHAIN_CONFIG.blockExplorerUrl}/tx/${txHash}`}
               target="_blank"
               rel="noreferrer"
               className="text-emerald-700 hover:text-emerald-900 underline text-xs font-bold flex items-center space-x-1"
             >
-              <span>View on BOTScan Testnet</span>
+              <BotChainLogo className="w-3.5 h-3.5" />
+              <span>View on BOTScan</span>
               <ExternalLink className="w-3 h-3" />
             </a>
           </div>

@@ -3,7 +3,8 @@ import { useAccount, useWriteContract } from 'wagmi';
 import { Database, Filter, ExternalLink, CheckCircle2, AlertTriangle, Clock, RefreshCw, User, ShieldCheck, Zap } from 'lucide-react';
 import { ethers } from 'ethers';
 import NonceWatchRegistryAbi from '../contracts/NonceWatchRegistry.json';
-import { BOTCHAIN_TESTNET_CONFIG } from '../services/botChainService';
+import { BOTCHAIN_CONFIG } from '../services/botChainService';
+import BotChainLogo from './BotChainLogo';
 
 export default function OnChainRegistryHistory({
   registryAddress,
@@ -25,7 +26,7 @@ export default function OnChainRegistryHistory({
 
     try {
       setLoading(true);
-      const provider = new ethers.JsonRpcProvider(BOTCHAIN_TESTNET_CONFIG.rpcUrl);
+      const provider = new ethers.JsonRpcProvider(BOTCHAIN_CONFIG.rpcUrl);
       const contract = new ethers.Contract(registryAddress, NonceWatchRegistryAbi.abi, provider);
 
       const totalBn = await contract.totalInvestigations();
@@ -115,8 +116,9 @@ export default function OnChainRegistryHistory({
               NonceWatchRegistry.sol
             </span>
           </div>
-          <p className="text-xs text-slate-500 mt-1">
-            Permanent ledger of recorded nonce checks and sequencing anomalies on BOT Chain Testnet.
+          <p className="text-xs text-slate-500 mt-1 flex items-center space-x-1.5">
+            <BotChainLogo className="w-3.5 h-3.5" />
+            <span>Permanent ledger of recorded nonce checks and sequencing anomalies on BOT Chain Mainnet.</span>
           </p>
         </div>
 
@@ -169,7 +171,7 @@ export default function OnChainRegistryHistory({
             Connected Registry: {registryAddress}
           </span>
           <a
-            href={`${BOTCHAIN_TESTNET_CONFIG.blockExplorerUrl}/address/${registryAddress}`}
+            href={`${BOTCHAIN_CONFIG.blockExplorerUrl}/address/${registryAddress}`}
             target="_blank"
             rel="noreferrer"
             className="text-blue-700 hover:underline flex items-center space-x-1 font-bold"
@@ -261,7 +263,7 @@ export default function OnChainRegistryHistory({
                   <div className="p-2 bg-slate-50 rounded-lg flex items-center justify-between">
                     <span className="text-slate-400 text-[10px] uppercase">Inspector:</span>
                     <a
-                      href={`${BOTCHAIN_TESTNET_CONFIG.blockExplorerUrl}/address/${item.inspector}`}
+                      href={`${BOTCHAIN_CONFIG.blockExplorerUrl}/address/${item.inspector}`}
                       target="_blank"
                       rel="noreferrer"
                       className="text-slate-700 hover:text-navy-900 flex items-center space-x-1 truncate ml-2"
@@ -315,7 +317,10 @@ export default function OnChainRegistryHistory({
           <Zap className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
           <span>Interactions with NonceWatchRegistry execute by <strong>Gas Fee Only</strong> (Zero protocol fees).</span>
         </span>
-        <span className="font-mono text-slate-400">BOT Chain Testnet (968)</span>
+        <span className="font-mono text-slate-400 flex items-center space-x-1">
+          <BotChainLogo className="w-3.5 h-3.5" />
+          <span>BOT Chain Mainnet (677)</span>
+        </span>
       </div>
 
     </div>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Search, RefreshCw, User, Copy, Check, Zap, ExternalLink, Database } from 'lucide-react';
-import { BOTCHAIN_TESTNET_CONFIG } from '../services/botChainService';
+import { BOTCHAIN_CONFIG } from '../services/botChainService';
+import BotChainLogo from './BotChainLogo';
 
 export default function AccountSearchBar({
   targetAddress,
@@ -27,7 +28,8 @@ export default function AccountSearchBar({
       <div>
         <div className="flex items-center justify-between mb-2">
           <label className="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center space-x-1.5">
-            <span>Target Wallet Address on BOT Chain Testnet</span>
+            <BotChainLogo className="w-4 h-4" />
+            <span>Target Wallet Address on BOT Chain Mainnet</span>
           </label>
           <span className="flex items-center space-x-1 text-[11px] font-bold text-amber-900 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-md">
             <Zap className="w-3 h-3 text-amber-600 fill-amber-500" />
@@ -84,7 +86,7 @@ export default function AccountSearchBar({
           <span>
             Every inspection request executes an on-chain transaction to <strong>NonceWatchRegistry.sol</strong> (0 BOT fee, standard gas only).
           </span>
-          <span className="font-mono text-slate-400 hidden md:inline">Chain ID: 968</span>
+          <span className="font-mono text-slate-400 hidden md:inline">Chain ID: 677</span>
         </div>
       </div>
 
@@ -128,11 +130,12 @@ export default function AccountSearchBar({
             <span className="font-mono font-bold">{lastInspectTxHash.slice(0, 10)}...{lastInspectTxHash.slice(-8)}</span>
           </div>
           <a
-            href={`${BOTCHAIN_TESTNET_CONFIG.blockExplorerUrl}/tx/${lastInspectTxHash}`}
+            href={`${BOTCHAIN_CONFIG.blockExplorerUrl}/tx/${lastInspectTxHash}`}
             target="_blank"
             rel="noreferrer"
             className="text-emerald-700 hover:text-emerald-900 underline font-bold flex items-center space-x-1"
           >
+            <BotChainLogo className="w-3.5 h-3.5" />
             <span>View on BOTScan</span>
             <ExternalLink className="w-3 h-3" />
           </a>

@@ -16,10 +16,17 @@ module.exports = {
     hardhat: {
       chainId: 31337,
     },
+    botchainMainnet: {
+      url: process.env.BOTCHAIN_MAINNET_RPC || "https://rpc.botchain.ai",
+      chainId: 677,
+      accounts: process.env.PRIVATE_KEY && (process.env.PRIVATE_KEY.length === 66 || process.env.PRIVATE_KEY.length === 64)
+        ? [process.env.PRIVATE_KEY.startsWith("0x") ? process.env.PRIVATE_KEY : `0x${process.env.PRIVATE_KEY}`]
+        : [],
+    },
     botchainTestnet: {
       url: process.env.BOTCHAIN_TESTNET_RPC || "https://rpc.bohr.life",
       chainId: 968,
-      accounts: process.env.PRIVATE_KEY && process.env.PRIVATE_KEY.length === 66 || (process.env.PRIVATE_KEY && process.env.PRIVATE_KEY.length === 64)
+      accounts: process.env.PRIVATE_KEY && (process.env.PRIVATE_KEY.length === 66 || process.env.PRIVATE_KEY.length === 64)
         ? [process.env.PRIVATE_KEY.startsWith("0x") ? process.env.PRIVATE_KEY : `0x${process.env.PRIVATE_KEY}`]
         : [],
     },

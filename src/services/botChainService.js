@@ -1,29 +1,45 @@
 import { ethers } from 'ethers';
 
-export const BOTCHAIN_TESTNET_CONFIG = {
-  chainId: 968,
-  chainIdHex: '0x3c8',
-  chainName: 'BOT Chain Testnet',
-  rpcUrl: process.env.BOTCHAIN_TESTNET_RPC || 'https://rpc.bohr.life',
+export const BOTCHAIN_MAINNET_CONFIG = {
+  chainId: 677,
+  chainIdHex: '0x2a5',
+  chainName: 'BOT Chain',
+  rpcUrl: process.env.BOTCHAIN_MAINNET_RPC || 'https://rpc.botchain.ai',
   nativeCurrency: {
     name: 'BOT',
     symbol: 'BOT',
     decimals: 18,
   },
-  blockExplorerUrl: process.env.BOTCHAIN_EXPLORER || 'https://scan.bohr.life/',
+  blockExplorerUrl: process.env.BOTCHAIN_EXPLORER || 'https://scan.botchain.ai/',
 };
 
+export const BOTCHAIN_TESTNET_CONFIG = {
+  chainId: 968,
+  chainIdHex: '0x3c8',
+  chainName: 'BOT Chain Testnet',
+  rpcUrl: 'https://rpc.bohr.life',
+  nativeCurrency: {
+    name: 'BOT',
+    symbol: 'BOT',
+    decimals: 18,
+  },
+  blockExplorerUrl: 'https://scan.bohr.life/',
+};
+
+// Default active config is BOT Chain Mainnet
+export const BOTCHAIN_CONFIG = BOTCHAIN_MAINNET_CONFIG;
+
 export class BotChainService {
-  constructor(rpcUrl = BOTCHAIN_TESTNET_CONFIG.rpcUrl) {
+  constructor(rpcUrl = BOTCHAIN_CONFIG.rpcUrl) {
     this.rpcUrl = rpcUrl;
     this.provider = new ethers.JsonRpcProvider(rpcUrl, {
-      chainId: BOTCHAIN_TESTNET_CONFIG.chainId,
-      name: BOTCHAIN_TESTNET_CONFIG.chainName,
+      chainId: BOTCHAIN_CONFIG.chainId,
+      name: BOTCHAIN_CONFIG.chainName,
     });
   }
 
   /**
-   * Fetches latest & pending nonce counts from BOT Chain Testnet strictly via live RPC.
+   * Fetches latest & pending nonce counts from BOT Chain strictly via live RPC.
    * No hardcoded data or mock addresses.
    */
   async inspectAccountNonces(address) {
@@ -31,7 +47,7 @@ export class BotChainService {
       throw new Error(`Invalid Ethereum/BOT Chain address format: ${address}`);
     }
 
-    // Query BOT Chain Testnet RPC in parallel
+    // Query BOT Chain RPC in parallel
     const [latestCountHex, pendingCountHex, balanceHex, code, block] = await Promise.all([
       this.provider.send('eth_getTransactionCount', [address, 'latest']),
       this.provider.send('eth_getTransactionCount', [address, 'pending']),

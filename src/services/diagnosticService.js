@@ -137,7 +137,7 @@ export class DiagnosticService {
       ethersV6Code: `// Ethers.js v6 Nonce Gap Unsticker
 import { ethers } from 'ethers';
 
-const provider = new ethers.JsonRpcProvider('https://rpc.bohr.life');
+const provider = new ethers.JsonRpcProvider('https://rpc.botchain.ai');
 const signer = new ethers.Wallet(process.env.PRIVATE_KEY, provider);
 
 async function unstickSequence() {
@@ -164,7 +164,7 @@ const account = privateKeyToAccount(process.env.PRIVATE_KEY);
 const client = createWalletClient({
   account,
   chain: botchainTestnet,
-  transport: http('https://rpc.bohr.life')
+  transport: http('https://rpc.botchain.ai')
 });
 
 const hash = await client.sendTransaction({
@@ -176,7 +176,7 @@ const hash = await client.sendTransaction({
 });
 console.log('Unsticking tx hash:', hash);`,
 
-      castCliCommand: `cast send --rpc-url https://rpc.bohr.life \\
+      castCliCommand: `cast send --rpc-url https://rpc.botchain.ai \\
   --private-key $PRIVATE_KEY \\
   --nonce ${nonce} \\
   --value 0 \\
