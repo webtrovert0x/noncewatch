@@ -7,11 +7,19 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [react()],
     define: {
-      'process.env.REOWN_ID': JSON.stringify(env.REOWN_ID || ''),
-      'process.env.BOTCHAIN_MAINNET_RPC': JSON.stringify(env.BOTCHAIN_MAINNET_RPC || env.BOTCHAIN_RPC || 'https://rpc.botchain.ai'),
+      'process.env.REOWN_ID': JSON.stringify(
+        env.REOWN_ID || env.VITE_REOWN_ID || env.REOWN_PROJECT_ID || 'd9690df1851903b53a4f8c440127edec'
+      ),
+      'process.env.BOTCHAIN_MAINNET_RPC': JSON.stringify(
+        env.BOTCHAIN_MAINNET_RPC || env.BOTCHAIN_RPC || 'https://rpc.botchain.ai'
+      ),
       'process.env.BOTCHAIN_CHAIN_ID': JSON.stringify(env.BOTCHAIN_CHAIN_ID || '677'),
-      'process.env.BOTCHAIN_EXPLORER': JSON.stringify(env.BOTCHAIN_EXPLORER || 'https://scan.botchain.ai/'),
-      'process.env.VITE_REGISTRY_ADDRESS': JSON.stringify(env.VITE_REGISTRY_ADDRESS || '0x5D9e60Fd6eF30e58EfC16BD00CFbBFB4C3297c73'),
+      'process.env.BOTCHAIN_EXPLORER': JSON.stringify(
+        env.BOTCHAIN_EXPLORER || 'https://scan.botchain.ai/'
+      ),
+      'process.env.VITE_REGISTRY_ADDRESS': JSON.stringify(
+        env.VITE_REGISTRY_ADDRESS || env.REGISTRY_ADDRESS || '0x5D9e60Fd6eF30e58EfC16BD00CFbBFB4C3297c73'
+      ),
     },
     server: {
       port: 5173,
